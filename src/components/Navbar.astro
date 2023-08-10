@@ -1,0 +1,33 @@
+---
+import logo from '/logo.png';
+
+const LINKS = [
+  {
+    name: 'Albums',
+    href: '/albums'
+  },
+  {
+    name: 'Artists',
+    href: '/artists'
+  },
+  {
+    name: 'Tags',
+    href: '/tags'
+  }
+];
+---
+
+<nav class="fixed top-0 inset-x-0 p-4 z-10 bg-cod-gray-50">
+  <div class="flex items-center max-w-5xl mx-auto gap-x-4">
+    <a class="hover:scale-105" href="/">
+      <img class="w-24" src={logo} alt="Last.fm logo">
+    </a>
+    <div class="justify-end flex gap-x-3 flex-1">
+      {LINKS.map(link => (
+        <a class="py-2 px-3 text-base text-red-800 font-semibold bg-transparent rounded-lg transition-all hover:text-cod-gray-50 hover:bg-red-800" href={link.href}>
+          {link.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
