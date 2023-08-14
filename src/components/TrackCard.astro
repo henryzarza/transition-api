@@ -1,0 +1,47 @@
+---
+import { checkImage } from '../utils';
+
+export interface Props {
+  index: number;
+  data: {
+    mbid: string;
+    name: string;
+    artist: {
+      name: string;
+      mbid: string;
+      url: string;
+    };
+    image: {
+      '#text': string;
+    }[];
+    duration: string;
+    playcount: string;
+    listeners: string;
+  }
+}
+
+const { name, artist, image, duration, playcount, mbid } = Astro.props.data;
+const imageSrc = checkImage(image, 2, `id/${Astro.props.index}/200`);
+const count = Number(playcount).toLocaleString('en-US');
+---
+
+<li class="flex">
+  <a
+    href={`tracks/${mbid}`}
+    class="bg-cod-gray-900 items-center rounded-md p-4 w-full flex gap-3 transition-all hover:bg-cod-gray-600"
+  >
+    <img class="w-16 rounded-sm" src={imageSrc} alt={name}>
+    <div class="flex flex-1 gap-3">
+      <div class="flex flex-col flex-1 items-start">
+        <h6 class="text-cod-gray-100 text-lg font-bold">{name}</h6>
+        <span class="text-cod-gray-100 text-base">
+          {artist.name}
+        </span>
+        <small class="text-cod-gray-100 text-sm font-light">
+          Playcount: {count}
+        </small>
+      </div>
+      <p class="text-cod-gray-100 text-lg self-center">{duration} seconds</p>
+    </div>
+  </a>
+</li>
