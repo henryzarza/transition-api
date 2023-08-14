@@ -38,7 +38,7 @@ module.exports = {
       white: colors.white
     },
     fontFamily: {
-      sans: ['Alpino-Variable', defaultTheme.fontFamily.sans],
+      sans: ['Satoshi', defaultTheme.fontFamily.sans],
     },
 	},
 	plugins: [],
