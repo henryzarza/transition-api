@@ -1,0 +1,36 @@
+---
+import { checkImage } from '../utils';
+
+export interface Props {
+  index: number;
+  data: {
+    name: string;
+    mbid: string;
+    image: {
+      '#text': string;
+    }[];
+    playcount: string;
+  }
+}
+
+const { name, image, mbid, playcount } = Astro.props.data;
+const imageSrc = checkImage(image, 3, `id/${Astro.props.index}/200`);
+const count = Number(playcount).toLocaleString('en-US');
+---
+
+<li>
+  <a
+    href={`artists/${mbid}`}
+    class="bg-cod-gray-900 rounded-md overflow-hidden w-full flex flex-col transition-all hover:bg-red-800 hover:scale-105"
+  >
+    <figure class="relative before:inset-0 before:absolute before:bg-[rgba(0,0,0,.15)]">
+      <img class="w-full" src={imageSrc} alt={name}>
+    </figure>
+    <div class="flex flex-col p-4">
+      <h6 class="text-cod-gray-100 text-lg font-bold">{name}</h6>
+      <span class="text-cod-gray-100 text-md">
+        Playcount: {count}
+      </span>
+    </div>
+  </a>
+</li>

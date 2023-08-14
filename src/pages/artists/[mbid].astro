@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro"
+
+export function getStaticPaths() {
+  return [
+    { params: { mbid: "164f0d73-1234-4e2c-8743-d77bf2191051" }}
+  ]
+}
+
+const { mbid } = Astro.params;
+---
+
+<Layout title={`Artist ${mbid} | Transition API`}>
+  <main class="pt-28 pb-12 px-4">
+    <h1 class="text-2xl font-bold tracking-tight text-white mb-4 text-center">
+      Artist: {mbid}
+    </h1>
+  </main>
+</Layout>
