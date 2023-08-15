@@ -22,12 +22,38 @@ const LINKS = [
     <a class="hover:scale-105" href="/">
       <img class="w-24" src={logo} alt="Last.fm logo">
     </a>
-    <div class="justify-end flex gap-x-3 flex-1">
+    <div class="justify-end flex gap-x-3 flex-1" id="nav-links">
       {LINKS.map(link => (
-        <a class="py-2 px-3 text-base text-red-800 font-semibold bg-transparent rounded-lg transition-all hover:text-cod-gray-50 hover:bg-red-800" href={link.href}>
+        <a
+          class="py-2 px-3 text-base text-red-800 font-semibold bg-transparent transition-all
+              relative before:absolute before:right-0 before:left-0 before:bottom-0 before:bg-red-800 before:h-1 before:scale-0
+              before:transition-transform hover:before:scale-100 hover:font-black
+            "
+          href={link.href}
+        >
           {link.name}
         </a>
       ))}
     </div>
   </div>
 </nav>
+
+<style>
+  a.link-active {
+    font-weight: 900;
+  }
+
+  a.link-active::before {
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  const { pathname } = window.location;
+  const activeLink = document.querySelector(`#nav-links a[href="${pathname}"]`);
+
+  if (activeLink) {
+    activeLink.classList.add('link-active');
+  }
+  
+</script>
