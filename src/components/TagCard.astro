@@ -2,15 +2,16 @@
 export interface Props {
   data: {
     name: string;
-    taggings: string;
-  }
+    taggings?: string;
+  };
+  externalUrl?: string;
 }
 
 const { name, taggings } = Astro.props.data;
 ---
 <li class="flex">
 	<a
-    href={`tags/${name}`}
+    href={Astro.props.externalUrl || `tags/${name}`}
     class="border-solid border-2 border-red-800 flex w-full transition-all hover:bg-red-800 hover:-skew-x-6"
   >
     <div class="p-3 flex-1 flex items-center bg-red-800">
@@ -19,8 +20,8 @@ const { name, taggings } = Astro.props.data;
       </h2>
     </div>
     <small class="p-3 gap-2 text-cod-gray-100 text-sm self-center">
-      <span class="font-semibold">Taggings</span>:
-      <br /> {Number(taggings).toLocaleString('en-US')}
+      <span class="font-light">Taggings</span>:
+      <br /> {taggings ? Number(taggings).toLocaleString('en-US') : 'Not Specified'}
     </small>
 	</a>
 </li>

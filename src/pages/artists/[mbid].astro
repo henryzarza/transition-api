@@ -1,6 +1,9 @@
 ---
+import TagCard from "../../components/TagCard.astro";
+import TrackCard from "../../components/TrackCard.astro";
 import Layout from "../../layouts/Layout.astro"
 import type { Artist } from "../../types";
+import { checkImage } from "../../utils";
 import { filterArtistsData, getData } from '../../utils';
 
 export async function getStaticPaths() {
@@ -13,12 +16,78 @@ export async function getStaticPaths() {
 }
 
 const { mbid } = Astro.params;
+const [ artistRes, topTracksRes ] = await Promise.all([
+  getData(`artist.getinfo&mbid=${mbid}`),
+  getData(`artist.gettoptracks&mbid=${mbid}`)
+]);
+
+const { artist } = artistRes;
+const { toptracks } = topTracksRes;
+const imageSrc = checkImage(artist.image, 4, `/500`);
 ---
 
-<Layout title={`Artist ${mbid} | Transition API`}>
-  <main class="pt-28 pb-12 px-4">
-    <h1 class="text-2xl font-bold tracking-tight text-white mb-4 text-center">
-      Artist: {mbid}
-    </h1>
-  </main>
+<Layout title={`${artist.name} | Transition API`}>
+  {artist && (
+    <main class="pt-28 pb-12 px-4 lg:px-0 max-w-5xl mx-auto w-full">
+      <!-- Info section -->
+      <section class="flex flex-col md:flex-row gap-6 md:gap-12 mb-10">
+        <img class="w-72 object-cover rounded-sm" src={imageSrc} alt={artist.name}>
+        <div class="flex flex-col">
+          <h1 class="text-5xl font-bold text-cod-gray-100 mb-3">
+            {artist.name}
+          </h1>
+          <span class="text-cod-gray-100 text-lg">
+            Playcount: <span class="font-semibold">{Number(artist.stats?.playcount).toLocaleString('en-US')}</span>
+          </span>
+          <span class="text-cod-gray-100 text-lg mb-3">
+            Listeners: <span class="font-semibold">{Number(artist.stats?.listeners).toLocaleString('en-US')}</span>
+          </span>
+          <p class="text-cod-gray-100 text-base mb-5" set:html={artist.bio?.summary} />
+          <a
+            class="px-8 py-3 self-start font-bold text-md text-cod-gray-100 bg-red-800 transition-all hover:text-red-800 hover:bg-cod-gray-100"
+            href={artist.url}
+          >
+            See more on Last.fm →
+          </a>
+        </div>
+      </section>
+
+      <!-- Biography section -->
+      <section class="flex flex-col mb-10">
+        <h2 class="text-3xl font-bold text-cod-gray-100 mb-3">
+          Biography
+        </h2>
+        <p class="text-cod-gray-100 text-base mb-4" set:html={artist.bio?.content} />
+        <small class="text-cod-gray-100 text-sm self-end">
+          Published: <span class="font-semibold">{artist.bio?.published}</span>
+        </small>
+      </section>
+
+      <!-- Tracks section -->
+      <section class="flex flex-col gap-10 mb-10">
+        <h2 class="text-2xl font-bold text-cod-gray-100">
+          Top Tracks
+        </h2>
+        {toptracks.track.length > 0 && (
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-2" role="list">
+            {toptracks.track.map((track: any, index: number) => <TrackCard index={index} data={track} />)}
+          </ul>
+        )}
+      </section>
+
+      <!-- Tags section -->
+      <section class="flex flex-col gap-10">
+        <h2 class="text-2xl font-bold text-cod-gray-100">
+          Tags
+        </h2>
+        {artist.tags.tag.length > 0 && (
+          <ul class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3" role="list">
+            {artist.tags.tag.map((tag: { name: string; taggings?:  undefined; url?: string; }) =>
+              <TagCard data={tag} externalUrl={tag.url} />
+            )}
+          </ul>
+        )}
+      </section>
+    </main>
+  )}
 </Layout>

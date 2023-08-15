@@ -1,6 +1,6 @@
 import type { Artist } from "./types";
 
-export async function getData(method: string, limit = '50') : Promise<any> {
+export async function getData(method: string, limit = '') : Promise<any> {
   const res = await fetch(`${import.meta.env.API_URL}&method=${method}&api_key=${import.meta.env.API_KEY}&limit=${limit}`);
 
   if (!res.ok) {

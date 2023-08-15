@@ -4,7 +4,7 @@ import { checkImage } from '../utils';
 export interface Props {
   index: number;
   data: {
-    mbid: string;
+    mbid?: string;
     name: string;
     artist: {
       name: string;
@@ -27,7 +27,7 @@ const count = Number(playcount).toLocaleString('en-US');
 
 <li class="flex">
   <a
-    href={`tracks/${mbid}`}
+    href={`/tracks/${mbid || ''}`}
     class="bg-cod-gray-900 items-center rounded-md p-4 w-full flex gap-3 transition-all hover:bg-cod-gray-600"
   >
     <img class="w-16 rounded-sm" src={imageSrc} alt={name}>
@@ -41,7 +41,7 @@ const count = Number(playcount).toLocaleString('en-US');
           Playcount: {count}
         </small>
       </div>
-      <p class="text-cod-gray-100 text-lg self-center">{duration} seconds</p>
+      <p class="text-cod-gray-100 text-lg self-center">{duration || '0'} seconds</p>
     </div>
   </a>
 </li>
