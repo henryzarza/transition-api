@@ -1,3 +1,5 @@
+import type { Artist } from "./types";
+
 export async function getData(method: string, limit = '50') : Promise<any> {
   const res = await fetch(`${import.meta.env.API_URL}&method=${method}&api_key=${import.meta.env.API_KEY}&limit=${limit}`);
 
@@ -18,4 +20,8 @@ export function checkImage(
   // this URL is a generic image provided by Last.fm APi
   // I don't like that default image that's the reason I'm changing it :)
   return imgUrl.includes('https://lastfm.freetls.fastly.net/i/u/') ? `https://picsum.photos/${defaultImgConfig}` : imgUrl;
+}
+
+export function filterArtistsData(data: Artist[], itemsToSlice: number) {
+  return data.filter(artist => artist.mbid).slice(0, itemsToSlice);
 }

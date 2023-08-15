@@ -1,16 +1,10 @@
 ---
+import type { Artist } from '../types';
 import { checkImage } from '../utils';
 
-export interface Props {
+interface Props {
   index: number;
-  data: {
-    name: string;
-    mbid: string;
-    image: {
-      '#text': string;
-    }[];
-    playcount: string;
-  }
+  data: Artist;
 }
 
 const { name, image, mbid, playcount } = Astro.props.data;

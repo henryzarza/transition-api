@@ -2,20 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import TagCard, { Props as TagCardProps } from '../components/TagCard.astro';
 import TrackCard, { Props as TrackCardProps } from '../components/TrackCard.astro';
-import ArtistCard, { Props as ArtistCardProps } from '../components/ArtistCard.astro';
+import ArtistCard from '../components/ArtistCard.astro';
 import { getData } from '../utils';
+import type { Artist } from '../types';
 
 const { artists: artistsResponse } = await getData('chart.gettopartists', '12');
 const { tracks: tracksResponse } = await getData('chart.gettoptracks', '12');
 const { tags: tagsResponse } = await getData('chart.gettoptags', '12');
 
 const tracks = (tracksResponse?.track || []) as Array<TrackCardProps['data']>;
-const artists = (artistsResponse?.artist || []) as Array<ArtistCardProps['data']>;
+const artists = (artistsResponse?.artist || []) as Artist[];
 const tags = (tagsResponse?.tag || []) as Array<TagCardProps['data']>;
 ---
 
 <Layout title="Home | Transition API">
-  <main class="pt-28 pb-12 px-4 max-w-5xl mx-auto w-full">
+  <main class="pt-28 pb-12 px-4 lg:px-0 max-w-5xl mx-auto w-full">
     <!-- Artists section -->
     <section class="flex flex-col gap-10 mb-10">
       <h2 class="text-5xl font-bold text-cod-gray-100">
@@ -23,7 +24,7 @@ const tags = (tagsResponse?.tag || []) as Array<TagCardProps['data']>;
       </h2>
       {artists.length > 0 && (
         <ul class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4" role="list">
-          {artists.map((artist, index) => <ArtistCard index={index + 50} data={artist} />)}
+          {artists.map((artist, index) => <ArtistCard index={index + 30} data={artist} />)}
         </ul>
       )}
       <a href="/artists" class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1">
