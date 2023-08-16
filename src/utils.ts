@@ -1,4 +1,4 @@
-import type { Artist } from "./types";
+import type { Artist, Track } from "./types";
 
 export async function getData(method: string, limit = '') : Promise<any> {
   const res = await fetch(`${import.meta.env.API_URL}&method=${method}&api_key=${import.meta.env.API_KEY}&limit=${limit}`);
@@ -24,4 +24,8 @@ export function checkImage(
 
 export function filterArtistsData(data: Artist[], itemsToSlice: number) {
   return data.filter(artist => artist.mbid).slice(0, itemsToSlice);
+}
+
+export function filterTrackData(data: Track[], itemsToSlice: number) {
+  return data.filter(track => track.mbid).slice(0, itemsToSlice);
 }
