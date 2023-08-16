@@ -1,22 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TagCard, { Props as TagCardProps } from '../components/TagCard.astro';
-import TrackCard, { Props as TrackCardProps } from '../components/TrackCard.astro';
+import TrackCard from '../components/TrackCard.astro';
 import ArtistCard from '../components/ArtistCard.astro';
-import { getData } from '../utils';
-import type { Artist } from '../types';
+import { filterArtistsData, getData, filterTrackData } from '../utils';
+import type { Artist, Track } from '../types';
 
-const { artists: artistsResponse } = await getData('chart.gettopartists', '12');
-const { tracks: tracksResponse } = await getData('chart.gettoptracks', '12');
-const { tags: tagsResponse } = await getData('chart.gettoptags', '12');
+const { artists: artistsResponse } = await getData('chart.gettopartists', '15');
+const { tracks: tracksResponse } = await getData('chart.gettoptracks', '80');
 
-const tracks = (tracksResponse?.track || []) as Array<TrackCardProps['data']>;
-const artists = (artistsResponse?.artist || []) as Artist[];
-const tags = (tagsResponse?.tag || []) as Array<TagCardProps['data']>;
+const tracks = filterTrackData((tracksResponse?.track || []) as Track[], 10);
+const artists = filterArtistsData((artistsResponse?.artist || []) as Artist[], 12);
 ---
 
 <Layout title="Home | Transition API">
   <main class="pt-28 pb-12 px-4 lg:px-0 max-w-5xl mx-auto w-full">
+    <!-- Favorites section -->
+    <section class="flex flex-col gap-10 mb-10">
+      <h2 class="text-5xl font-bold text-cod-gray-100">
+        My Favorites Artists
+      </h2>
+      <ul>
+        <li>TO BE DONE</li>
+        <li>TO BE DONE</li>
+      </ul>
+      <a href="/favorites" class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1">
+        See more →
+      </a>
+    </section>
+
     <!-- Artists section -->
     <section class="flex flex-col gap-10 mb-10">
       <h2 class="text-5xl font-bold text-cod-gray-100">
@@ -33,31 +44,16 @@ const tags = (tagsResponse?.tag || []) as Array<TagCardProps['data']>;
     </section>
 
     <!-- Tracks section -->
-    <section class="flex flex-col gap-10 mb-10">
+    <section class="flex flex-col gap-10">
       <h2 class="text-5xl font-bold text-cod-gray-100">
         Top Tracks
       </h2>
       {tracks.length > 0 && (
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-2" role="list">
-          {tracks.map((track, index) => <TrackCard index={index + 10} data={track} />)}
+          {tracks.map((track, index) => <TrackCard index={index} data={track} />)}
         </ul>
       )}
       <a href="/tracks" class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1">
-        See more →
-      </a>
-    </section>
-
-    <!-- Tags section -->
-    <section class="flex flex-col gap-10">
-      <h2 class="text-5xl font-bold text-cod-gray-100">
-        Top Tags
-      </h2>
-      {tags.length > 0 && (
-        <ul class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3" role="list">
-          {tags.map(tag => <TagCard data={tag} />)}
-        </ul>
-      )}
-      <a href="/tags" class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1">
         See more →
       </a>
     </section>
