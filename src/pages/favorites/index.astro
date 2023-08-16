@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import FavoriteCard from '../../components/FavoriteCard.astro';
+import { FAVORITE_ARTISTS } from '../../constants';
+---
+
+<Layout title="Favorite | Transition API">
+  <main class="pt-28 pb-12 px-4 lg:px-0 max-w-5xl mx-auto w-full flex flex-col gap-10">
+    <h2 class="text-5xl font-bold text-cod-gray-100">
+      My {FAVORITE_ARTISTS.length} Favorite Artists
+    </h2>
+    <ul class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4" role="list">
+      {FAVORITE_ARTISTS.map(({ id, name, imageSrc }) =>
+          <FavoriteCard id={id} name={name} imageSrc={imageSrc} />
+        )
+      }
+    </ul>
+  </main>
+</Layout>
