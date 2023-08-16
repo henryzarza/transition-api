@@ -2,8 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import TrackCard from '../components/TrackCard.astro';
 import ArtistCard from '../components/ArtistCard.astro';
+import FavoriteCard from '../components/FavoriteCard.astro';
 import { filterArtistsData, getData, filterTrackData } from '../utils';
 import type { Artist, Track } from '../types';
+import { FAVORITE_ARTISTS } from '../constants';
 
 const { artists: artistsResponse } = await getData('chart.gettopartists', '15');
 const { tracks: tracksResponse } = await getData('chart.gettoptracks', '80');
@@ -17,11 +19,14 @@ const artists = filterArtistsData((artistsResponse?.artist || []) as Artist[], 1
     <!-- Favorites section -->
     <section class="flex flex-col gap-10 mb-10">
       <h2 class="text-5xl font-bold text-cod-gray-100">
-        My Favorites Artists
+        My Favorite Artists
       </h2>
-      <ul>
-        <li>TO BE DONE</li>
-        <li>TO BE DONE</li>
+      <ul class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4" role="list">
+        {FAVORITE_ARTISTS.slice(0, 8)
+          .map(({ id, name, imageSrc }) =>
+            <FavoriteCard id={id} name={name} imageSrc={imageSrc} />
+          )
+        }
       </ul>
       <a href="/favorites" class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1">
         See more →
@@ -31,7 +36,7 @@ const artists = filterArtistsData((artistsResponse?.artist || []) as Artist[], 1
     <!-- Artists section -->
     <section class="flex flex-col gap-10 mb-10">
       <h2 class="text-5xl font-bold text-cod-gray-100">
-        Top Artists
+        Top Artists on Last.fm Chart
       </h2>
       {artists.length > 0 && (
         <ul class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4" role="list">
@@ -46,7 +51,7 @@ const artists = filterArtistsData((artistsResponse?.artist || []) as Artist[], 1
     <!-- Tracks section -->
     <section class="flex flex-col gap-10">
       <h2 class="text-5xl font-bold text-cod-gray-100">
-        Top Tracks
+        Top Tracks on Last.fm Chart
       </h2>
       {tracks.length > 0 && (
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-2" role="list">
