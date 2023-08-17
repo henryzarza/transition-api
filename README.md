@@ -1,16 +1,9 @@
-# Astro Starter Kit: Basics
+# Transition API with Astro
 
-```
-npm create astro@latest -- --template basics
-```
+This is a project to test the web [Transition API](https://developer.chrome.com/docs/web-platform/view-transitions/) using the [Last.fm API](https://www.last.fm/).
+The Last.fm API allows anyone to build their own programs using Last.fm data. Find out more about how you can plug directly into their vast database or browse the list of methods on [this documentation](https://www.last.fm/api#getting-started).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+I also created [this small](https://mirror-maiasaura-9b2.notion.site/Tailwind-CSS-71b33a573fbf4859baeeaf9fe250168c?pvs=4) Tailwind CSS notes with my learning thoughts.
 
 ## 🚀 Project Structure
 
