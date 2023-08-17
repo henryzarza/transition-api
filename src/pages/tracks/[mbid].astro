@@ -1,8 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getData, filterTrackData, checkImage } from '../../utils';
+import { getData, filterTrackData } from '../../utils';
 import type { Track } from "../../types";
 import TagCard from "../../components/TagCard.astro";
+import GoBackButton from "../../components/GoBackButton.astro";
 
 export async function getStaticPaths() {
   const { tracks: tracksResponse } = await getData('chart.gettoptracks', '130');
@@ -19,14 +20,20 @@ const { track } = await getData(`track.getinfo&mbid=${mbid}`);
 <Layout title={`${track.name} | Transition API`}>
   {track && (
     <main class="pt-28 pb-12 px-4 lg:px-0 max-w-5xl mx-auto w-full">
+      <GoBackButton transitionName="go-back-track" />
       <!-- Info section -->
-      <section class="flex flex-col md:flex-row gap-6 md:gap-12 mb-10">
-        <img class="w-72 object-cover rounded-sm" src="https://picsum.photos/500" alt={track.name}>
+      <section class="flex flex-col md:flex-row gap-6 md:gap-12 mb-10 mt-4">
+        <img
+          class="w-72 object-cover rounded-sm"
+          src="https://picsum.photos/500"
+          alt={track.name}
+          transition:name={`track-img-${mbid}`}
+        />
         <div class="flex flex-col">
-          <h1 class="text-5xl font-bold text-cod-gray-100">
+          <h1 class="text-5xl font-bold text-cod-gray-100" transition:name={`track-name-${mbid}`}>
             {track.name}
           </h1>
-          <h2 class="text-3xl font-bold text-cod-gray-100">
+          <h2 class="text-3xl font-bold text-cod-gray-100" transition:name={`track-artist-${mbid}`}>
             {track.artist.name}
           </h2>
           <h3 class="text-xl font-bold text-cod-gray-100 mb-3">

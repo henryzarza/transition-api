@@ -1,0 +1,13 @@
+---
+interface Props {
+  transitionName?: string;
+}
+---
+
+<button
+  class="px-10 py-3 rounded self-start border-red-500 border-solid border-2 text-red-500 font-bold text-sm transition-all hover:text-cod-gray-100 hover:bg-red-500 focus:outline-1"
+  onclick="history.back()"
+  transition:name={Astro.props.transitionName || "go-back-button"}
+>
+  ← Go Back
+</button>

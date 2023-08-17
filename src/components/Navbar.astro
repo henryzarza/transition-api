@@ -37,23 +37,3 @@ const LINKS = [
     </div>
   </div>
 </nav>
-
-<style>
-  a.link-active {
-    font-weight: 900;
-  }
-
-  a.link-active::before {
-    transform: scale(1);
-  }
-</style>
-
-<script>
-  const { pathname } = window.location;
-  const activeLink = document.querySelector(`#nav-links a[href="${pathname}"]`);
-
-  if (activeLink) {
-    activeLink.classList.add('link-active');
-  }
-  
-</script>

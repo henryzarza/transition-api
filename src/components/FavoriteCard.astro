@@ -17,8 +17,14 @@ const { name, id, imageSrc } = Astro.props;
       class="w-full h-48 object-cover clip transition-all"
       src={imageSrc}
       alt={name}
+      transition:name={`favorite-img-${id}`}
     />
-    <h6 class="text-cod-gray-100 text-lg font-semibold text-center">{name}</h6>
+    <h6
+      class="text-cod-gray-100 text-lg font-semibold text-center"
+      transition:name={`favorite-title-${id}`}
+    >
+      {name}
+    </h6>
   </a>
 </li>
 

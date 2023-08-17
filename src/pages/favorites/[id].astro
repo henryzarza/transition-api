@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import { FAVORITE_ARTISTS } from "../../constants";
 import TagCard from "../../components/TagCard.astro";
 import TrackCard from "../../components/TrackCard.astro";
+import GoBackButton from "../../components/GoBackButton.astro";
 import { getData } from "../../utils";
 
 export function getStaticPaths() {
@@ -27,11 +28,17 @@ if (mockData) {
 <Layout title={`${mockData?.name} | Transition API`}>
   {mockData && (
     <main class="pt-28 pb-12 px-4 lg:px-0 max-w-5xl mx-auto w-full">
+      <GoBackButton />
       <!-- Info section -->
-      <section class="flex flex-col md:flex-row gap-6 md:gap-12 mb-10">
-        <img class="w-72 object-cover rounded-sm" src={mockData.imageSrc} alt={mockData.name}>
+      <section class="flex flex-col md:flex-row gap-6 md:gap-12 mb-10 mt-4">
+        <img
+          class="w-72 object-cover rounded-sm"
+          src={mockData.imageSrc}
+          alt={mockData.name}
+          transition:name={`favorite-img-${mockData.id}`}
+        />
         <div class="flex flex-col">
-          <h1 class="text-5xl font-bold text-cod-gray-100 mb-3">
+          <h1 class="text-5xl font-bold text-cod-gray-100 mb-3" transition:name={`favorite-title-${mockData.id}`}>
             {mockData.name}
           </h1>
           <span class="text-cod-gray-100 text-lg">

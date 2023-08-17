@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ArtistCard from '../../components/ArtistCard.astro';
+import GoBackButton from '../../components/GoBackButton.astro';
 import { getData, filterArtistsData } from '../../utils';
 import type { Artist } from "../../types";
 
@@ -11,7 +12,8 @@ const data = filterArtistsData(artists, 24);
 
 <Layout title="Artists | Transition API">
   <main class="pt-28 pb-12 px-4 lg:px-0 max-w-5xl mx-auto w-full flex flex-col gap-10">
-    <h2 class="text-5xl font-bold text-cod-gray-100">
+    <GoBackButton transitionName="go-back-artist" />
+    <h2 class="text-5xl font-bold text-cod-gray-100" transition:name="artists-title">
       Top 24 Artists on Last.fm Chart
     </h2>
     {data.length > 0 && (

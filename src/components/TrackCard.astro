@@ -9,20 +9,34 @@ interface Props {
 }
 
 const { name, artist, image, duration, playcount, url, mbid } = Astro.props.data;
+const { isExternal } = Astro.props;
 const imageSrc = checkImage(image, 2, `id/${Astro.props.index}/200`);
 const count = Number(playcount).toLocaleString('en-US');
 ---
 
 <li class="flex">
   <a
-    href={Astro.props.isExternal ? url : `/tracks/${mbid}`}
+    href={isExternal ? url : `/tracks/${mbid}`}
     class="bg-cod-gray-900 items-center rounded-md p-4 w-full flex gap-3 transition-all hover:bg-cod-gray-600"
   >
-    <img class="w-16 rounded-sm" src={imageSrc} alt={name}>
+    <img
+      class="w-16 rounded-sm"
+      src={imageSrc}
+      alt={name}
+      transition:name={isExternal ? undefined : `track-img-${mbid}`}
+    />
     <div class="flex flex-1 gap-3">
       <div class="flex flex-col flex-1 items-start">
-        <h6 class="text-cod-gray-100 text-lg font-bold">{name}</h6>
-        <span class="text-cod-gray-100 text-base">
+        <h6
+          class="text-cod-gray-100 text-lg font-bold"
+          transition:name={isExternal ? undefined : `track-name-${mbid}`}
+        >
+          {name}
+        </h6>
+        <span
+          class="text-cod-gray-100 text-base"
+          transition:name={isExternal ? undefined : `track-artist-${mbid}`}
+        >
           {artist.name}
         </span>
         <small class="text-cod-gray-100 text-sm font-light">

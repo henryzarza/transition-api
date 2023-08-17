@@ -18,7 +18,7 @@ const artists = filterArtistsData((artistsResponse?.artist || []) as Artist[], 1
   <main class="pt-28 pb-12 px-4 lg:px-0 max-w-5xl mx-auto w-full">
     <!-- Favorites section -->
     <section class="flex flex-col gap-10 mb-10">
-      <h2 class="text-5xl font-bold text-cod-gray-100">
+      <h2 class="text-3xl font-bold text-cod-gray-100" transition:name="favorite-title">
         My Favorite Artists
       </h2>
       <ul class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4" role="list">
@@ -28,14 +28,18 @@ const artists = filterArtistsData((artistsResponse?.artist || []) as Artist[], 1
           )
         }
       </ul>
-      <a href="/favorites" class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1">
+      <a
+        href="/favorites"
+        class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1"
+        transition:name="go-back-button"
+      >
         See more →
       </a>
     </section>
 
     <!-- Artists section -->
     <section class="flex flex-col gap-10 mb-10">
-      <h2 class="text-5xl font-bold text-cod-gray-100">
+      <h2 class="text-3xl font-bold text-cod-gray-100" transition:name="artists-title">
         Top Artists on Last.fm Chart
       </h2>
       {artists.length > 0 && (
@@ -43,14 +47,18 @@ const artists = filterArtistsData((artistsResponse?.artist || []) as Artist[], 1
           {artists.map((artist, index) => <ArtistCard index={index + 30} data={artist} />)}
         </ul>
       )}
-      <a href="/artists" class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1">
+      <a
+        href="/artists"
+        class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1"
+        transition:name="go-back-artist"
+      >
         See more →
       </a>
     </section>
 
     <!-- Tracks section -->
     <section class="flex flex-col gap-10">
-      <h2 class="text-5xl font-bold text-cod-gray-100">
+      <h2 class="text-3xl font-bold text-cod-gray-100" transition:name="tracks-title">
         Top Tracks on Last.fm Chart
       </h2>
       {tracks.length > 0 && (
@@ -58,7 +66,11 @@ const artists = filterArtistsData((artistsResponse?.artist || []) as Artist[], 1
           {tracks.map((track, index) => <TrackCard index={index} data={track} />)}
         </ul>
       )}
-      <a href="/tracks" class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1">
+      <a
+        href="/tracks"
+        class="px-14 py-3 self-center rounded font-bold text-md text-cod-gray-100 bg-cod-gray-900 transition-all hover:text-cod-gray-900 hover:bg-cod-gray-100 focus:outline-1"
+        transition:name="go-back-track"
+      >
         See more →
       </a>
     </section>
